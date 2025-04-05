@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/flappy/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/dungeoncrawl/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b4bb2123-3c48-42a7-9349-96b526e0dd8c" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/FUNDING.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rust.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rust.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.template/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.template/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.template/tests/progress.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Async_Server/async_runtime/src/executor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Async_Server/async_runtime/src/executor.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Async_Server/data_layer/src/data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Async_Server/data_layer/src/data.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE-APACHE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE-MIT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/impl/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/impl/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/01-specifier-types.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/02-storage.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/03-accessors.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/04-multiple-of-8bits.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/04-multiple-of-8bits.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/05-accessor-signatures.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/06-enums.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/07-optional-discriminant.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/08-non-power-of-two.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/08-non-power-of-two.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/09-variant-out-of-range.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/09-variant-out-of-range.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/10-bits-attribute.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/11-bits-attribute-wrong.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/11-bits-attribute-wrong.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/12-accessors-edge.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitfield/tests/progress.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/01-parse.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/02-create-builder.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/03-call-setters.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/04-call-build.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/05-method-chaining.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/06-optional-field.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/07-repeated-field.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/08-unrecognized-attribute.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/08-unrecognized-attribute.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/09-redefined-prelude-types.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/builder/tests/progress.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/01-parse.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/02-impl-debug.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/03-custom-format.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/04-type-parameter.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/05-phantom-data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/06-bound-trouble.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/07-associated-type.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/08-escape-hatch.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/tests/progress.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/camera.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/camera.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/components.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/components.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/map.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/map.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/map_builder.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/map_builder.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/spawner.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/spawner.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/systems/entity_render.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/systems/entity_render.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/systems/map_render.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/systems/map_render.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/systems/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/systems/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dungeoncrawl/src/systems/player_input.rs" beforeDir="false" afterPath="$PROJECT_DIR$/dungeoncrawl/src/systems/player_input.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leetcode_test/LeetcodeDOC.md" beforeDir="false" afterPath="$PROJECT_DIR$/leetcode_test/LeetcodeDOC.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leetcode_test/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/leetcode_test/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leetcode_test/src/leetcode/code2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/leetcode_test/src/leetcode/code2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leetcode_test/src/leetcode/code_d2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/leetcode_test/src/leetcode/code_d2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/01-parse-header.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/02-parse-body.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/03-expand-four-errors.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/03-expand-four-errors.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/04-paste-ident.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/05-repeat-section.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/06-init-array.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/07-inclusive-range.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/08-ident-span.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/08-ident-span.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/09-interaction-with-macrorules.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq/tests/progress.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/01-parse-enum.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/02-not-enum.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/02-not-enum.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/03-out-of-order.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/03-out-of-order.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/04-variants-with-data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/04-variants-with-data.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/05-match-expr.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/05-match-expr.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/06-pattern-path.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/06-pattern-path.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/07-unrecognized-pattern.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/07-unrecognized-pattern.stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/08-underscore.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorted/tests/progress.rs" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:dev" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Aria-iu&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dtolnay/proc-macro-workshop.git&quot;,
+    &quot;accountId&quot;: &quot;585ee010-f1d0-4909-8f4b-1044ddf57a38&quot;
+  }
+}</component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="oJnh6IA3" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2v2KbLWXEtjFTlhxbnMGB4BL5m4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cargo.Run flappy.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/code/rust",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.first.attach.projects": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Cargo.Run flappy">
+    <configuration name="Run flappy" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="buildProfileId" value="dev" />
+      <option name="command" value="run --package flappy --bin flappy" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/flappy" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test flappy" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="command" value="test --workspace" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/flappy" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="b4bb2123-3c48-42a7-9349-96b526e0dd8c" name="更改" comment="" />
+      <created>1743337799816</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743337799816</updated>
+      <workItem from="1743337801767" duration="2709000" />
+      <workItem from="1743396305550" duration="550000" />
+      <workItem from="1743396864610" duration="121000" />
+      <workItem from="1743663511362" duration="531000" />
+      <workItem from="1743863890071" duration="121000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

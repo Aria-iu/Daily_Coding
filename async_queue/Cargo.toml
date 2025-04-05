@@ -1,0 +1,15 @@
+[package]
+name = "async_queue"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+hyper = { version = "0.14.26",  features = ["http1", "http2", "client", "runtime"] }
+smol = "1.3.0"
+anyhow = "1.0.70"
+async-native-tls = "0.5.0"
+http = "0.2.9"
+tokio = "1.14.0"
+async-task = "4.4.0"                   # 这个库是为了将 future 转换为 task 的核心模块
+futures-lite = "1.12.0"     # futures 库的轻量级实现
+flume = "0.10.14"         # mpmc 通道 ，用来实现 async queue， 允许 task 安全的在运行时中进行传递

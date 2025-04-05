@@ -1,0 +1,352 @@
+#![allow(dead_code)]
+#![allow(unused)]
+
+use std::{future::Future, panic::catch_unwind, thread};
+use std::pin::Pin;
+use std::task::{Context, Poll};
+use std::time::Duration;
+use std::sync::LazyLock;
+use async_task::{Runnable, Task};
+use futures_lite::future;
+
+
+/*
+We should start by building the task-spawning function.
+This is where we pass a future into the function.
+The function then converts the future into a task and puts the task on the queue to be executed.
+
+Our future needs the Send trait because we
+are going to be sending our future into a different thread where the queue is based.
+The Send trait enforces constraints that ensure that our future can be safely shared
+among threads.
+
+The static means that our future does not contain any references that have a
+shorter lifetime than the static lifetime. Therefore, the future can be used for as long
+as the program is running. Ensuring this lifetime is essential, as we cannot force
+programmers to wait for a task to finish.
+
+*/
+macro_rules! spawn_task {
+    ($future:expr) => {
+        spawn_task!($future, FutureType::Low)
+    };
+    ($future:expr, $order:expr) => {
+        spawn_task($future, $order)
+    };
+}
+
+macro_rules! join {
+    ($($future:expr),*) => {
+        {
+            let mut results = Vec::new();
+            $(
+                results.push(future::block_on($future));
+            )*
+            results
+        }
+    };
+}
+
+macro_rules! try_join {
+    ($($future:expr),*) => {
+        {
+            let mut results = Vec::new();
+            $(
+                let result = catch_unwind(|| future::block_on($future));
+                results.push(result);
+            )*
+            results
+        }
+    };
+}
+
+struct Runtime {
+    high_num: usize,
+    low_num: usize,
+}
+impl Runtime {
+    pub fn new() -> Self {
+        let num_cores = std::thread::available_parallelism().unwrap().get();
+        Self {
+            high_num: num_cores - 2,
+            low_num: 1,
+        }
+    }
+    pub fn with_high_num(mut self, num: usize) -> Self {
+        self.high_num = num;
+        self
+    }
+    pub fn with_low_num(mut self, num: usize) -> Self {
+        self.low_num = num;
+        self
+    }
+    pub fn run(&self) {
+        unsafe { std::env::set_var("HIGH_NUM", self.high_num.to_string()); }
+        unsafe { std::env::set_var("LOW_NUM", self.low_num.to_string()); }
+
+        // init lazy queues , and done
+        let high = spawn_task!(async {}, FutureType::High);
+        let low = spawn_task!(async {}, FutureType::Low);
+        join!(high, low);
+    }
+}
+
+fn spawn_task<F,T>(future: F, order: FutureType) -> Task<T>
+    where
+        F: Future<Output = T> + Send + 'static,
+        T: Send + 'static
+{
+    // // created a closure that accepts a runnable and sends it to our queue
+    // let schedule = |runnable| QUEUE.send(runnable).unwrap();
+    // // create the runnable and task by using the async_task spawn function
+    // //  the task and the runnable have pointers to the same future.
+    // let (runnable, task) = async_task::spawn(future, schedule);
+    // // When we schedule the runnable,
+    // // we essentially put the task on the queue to be
+    // // processed.
+    // runnable.schedule();
+    // println!("Here is the queue count: {:?}", QUEUE.len());
+    // task
+
+    let schedule_high = |runnable| HIGH_QUEUE.send(runnable).unwrap();
+    let schedule_low = |runnable| LOW_QUEUE.send(runnable).unwrap();
+    // let schedule = match future.get_order() {
+    //     FutureType::High => schedule_high,
+    //     FutureType::Low => schedule_low
+    // };
+    // let (runnable, task) = async_task::spawn(future, schedule);
+    // runnable.schedule();
+    // return task;
+
+    let scheduler = match order {
+        FutureType::High => schedule_high,
+        FutureType::Low => schedule_low,
+    };
+    let (runnable, task) = async_task::spawn(future, scheduler);
+    runnable.schedule();
+    return task;
+}
+
+// defines the task queue
+// Runnable is a handle for a runnable task.
+// Every spawned task has a single Runnable
+// handle, which exists only when the task is
+// scheduled for running.
+// static QUEUE: LazyLock<flume::Sender<Runnable>> = LazyLock::new(||{
+//     let (tx,rx) = flume::unbounded::<Runnable>();
+//     thread::spawn(move || {
+//         while let Ok(runnable) = rx.recv() {
+//             println!("runnable accepted");
+//             // Once we have received our runnable,
+//             // we run it in the catch_unwind function.
+//             // catch_unwind runs the code and catches any error that’s thrown
+//             // while the code is running,
+//             // returning Ok or Err depending on the outcome
+//             let _ = catch_unwind(|| runnable.run());
+//         }
+//     });
+//     tx
+// });
+
+// static QUEUE: LazyLock<flume::Sender<Runnable>> = LazyLock::new(||{
+//     let (tx,rx) = flume::unbounded::<Runnable>();
+//
+//     let queue_one = rx.clone();
+//     let queue_two = rx.clone();
+//     thread::spawn(move || {
+//         while let Ok(runnable) = queue_one.recv() {
+//             println!("run in queue 1");
+//             let _ = catch_unwind(|| runnable.run());
+//         }
+//     });
+//
+//     thread::spawn(move || {
+//         while let Ok(runnable) = queue_two.recv() {
+//             println!("run in queue 2");
+//             let _ = catch_unwind(|| runnable.run());
+//         }
+//     });
+//     tx
+// });
+
+use flume::{Sender, Receiver};
+static HIGH_CHANNEL: LazyLock<(Sender<Runnable>, Receiver<Runnable>)> =
+    LazyLock::new(|| flume::unbounded::<Runnable>());
+static LOW_CHANNEL: LazyLock<(Sender<Runnable>, Receiver<Runnable>)> =
+    LazyLock::new(|| flume::unbounded::<Runnable>());
+
+static HIGH_QUEUE: LazyLock<flume::Sender<Runnable>> = LazyLock::new(||{
+    let high_num = std::env::var("HIGH_NUM").unwrap().parse::<usize>().unwrap();
+    for _ in 0..high_num {
+        let high_receiver = HIGH_CHANNEL.1.clone();
+        let low_receiver = LOW_CHANNEL.1.clone();
+        thread::spawn(move || {
+            loop {
+                match high_receiver.try_recv() {
+                    Ok(runnable) => {
+                        let _ = catch_unwind(|| runnable.run());
+                    },
+                    Err(_) => {
+                        match low_receiver.try_recv() {
+                            Ok(runnable) => {
+                                let _ = catch_unwind(|| runnable.run());
+                            },
+                            Err(_) => {
+                                thread::sleep(Duration::from_millis(100));
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    HIGH_CHANNEL.0.clone()
+});
+
+
+static LOW_QUEUE: LazyLock<flume::Sender<Runnable>> = LazyLock::new(||{
+    let low_num = std::env::var("LOW_NUM").unwrap().parse::<usize>().unwrap();
+    for _ in 0..low_num {
+        let high_receiver = HIGH_CHANNEL.1.clone();
+        let low_receiver = LOW_CHANNEL.1.clone();
+        thread::spawn(move || {
+            loop {
+                match low_receiver.try_recv() {
+                    Ok(runnable) => {
+                        let _ = catch_unwind(|| runnable.run());
+                    },
+                    Err(_) => {
+                        match high_receiver.try_recv() {
+                            Ok(runnable) => {
+                                let _ = catch_unwind(|| runnable.run());
+                            },
+                            Err(_) => {
+                                thread::sleep(Duration::from_millis(100));
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    LOW_CHANNEL.0.clone()
+});
+
+#[derive(Debug, Clone, Copy)]
+enum FutureType {
+    High,
+    Low
+}
+
+struct CounterFuture {
+    count: u32,
+}
+
+
+impl Future for CounterFuture {
+    type Output = u32;
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>)
+            -> Poll<Self::Output> {
+        self.count += 1;
+        println!("polling with result: {}", self.count);
+        std::thread::sleep(Duration::from_secs(1));
+        if self.count < 3 {
+            cx.waker().wake_by_ref();
+            Poll::Pending
+        } else {
+            Poll::Ready(self.count)
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+struct BackgroundProcess;
+
+impl Future for BackgroundProcess {
+    type Output = ();
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>)
+            -> Poll<Self::Output> {
+        println!("background process firing");
+        std::thread::sleep(Duration::from_secs(1));
+        cx.waker().wake_by_ref();
+        Poll::Pending
+    }
+}
+
+async fn async_fn() {
+    std::thread::sleep(Duration::from_secs(1));
+    println!("async fn");
+}
+
+fn main() {
+    // let one = CounterFuture { count: 0 };
+    // let two = CounterFuture { count: 0 };
+    // let t_one = spawn_task(one);
+    // let t_two = spawn_task(two);
+    // let t_three = spawn_task(async {
+    //     async_fn().await;
+    //     async_fn().await;
+    //     async_fn().await;
+    //     async_fn().await;
+    // });
+    // std::thread::sleep(Duration::from_secs(5));
+    // println!("before the block");
+    //
+    // let t1 = future::block_on(t_one);
+    // let t2 = future::block_on(t_two);
+    // future::block_on(t_three);
+
+    // let one = CounterFuture { count: 0 , order: FutureType::High};
+    // let t_one = spawn_task(one);
+    // let t1 = future::block_on(t_one);
+
+/*    let one = CounterFuture { count: 0 };
+    let two = CounterFuture { count: 0 };
+    let t_one = spawn_task!(one, FutureType::High);
+    let t_two = spawn_task!(two);
+    let t_three = spawn_task!(async_fn());
+    let t_four = spawn_task!(async {
+        async_fn().await;
+        async_fn().await;
+    }, FutureType::High);
+    // future::block_on(t_one);
+    // future::block_on(t_two);
+    // future::block_on(t_three);
+    // future::block_on(t_four);
+
+    let outcome: Vec<u32> = join!(t_one, t_two);
+    let outcome_two: Vec<()> = join!(t_four, t_three);*/
+
+    /*Runtime::new().run();   // initialize lazy queues
+    let one = CounterFuture { count: 0 };
+    let two = CounterFuture { count: 0 };
+    let t_one = spawn_task!(one, FutureType::High);
+    let t_two = spawn_task!(two);
+    let t_three = spawn_task!(async_fn());
+    let t_four = spawn_task!(async {
+        async_fn().await;
+        async_fn().await;
+    }, FutureType::High);
+    let outcome: Vec<u32> = join!(t_one, t_two);
+    let outcome_two: Vec<()> = join!(t_four, t_three);*/
+
+    // Runtime::new().with_low_num(2).with_high_num(4).run();
+    // // let background = spawn_task!(BackgroundProcess{}); // low queue
+    // // join!(background);
+    // spawn_task!(BackgroundProcess{}).detach();  // in background ，detach 使得任务 Task<T> 不会因为被 drop 掉而导致任务取消，而是一直执行到程序生命周期结束。
+    // let one = CounterFuture { count: 0 };
+    // let two = CounterFuture { count: 0 };
+    // let t_one = spawn_task!(one, FutureType::High);
+    // let t_two = spawn_task!(two);
+    // let t_three = spawn_task!(async_fn());
+    // let t_four = spawn_task!(async {
+    //     async_fn().await;
+    //     async_fn().await;
+    // }, FutureType::High);
+    // let outcome: Vec<u32> = join!(t_one, t_two);
+    // let outcome_two: Vec<()> = join!(t_four, t_three);
+
+    Runtime::new().with_low_num(2).with_high_num(4).run();
+
+
+}

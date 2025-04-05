@@ -1,0 +1,20 @@
+[package]
+name = "Async_Server"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+members = [
+    "client",
+    "server",
+    "data_layer",
+    "async_runtime"
+]
+
+[[bin]]
+name = "server"
+path = "./server/src/main.rs"
+
+[[bin]]
+name = "client"
+path = "./client/src/main.rs"
